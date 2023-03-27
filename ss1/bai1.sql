@@ -13,6 +13,7 @@ country varchar(45) not null
 );
 insert into teacher (name_teacher,age,country)
 value('Nguyen hung', 12 , 'ZietLam' );
+
 select * from teacher ; 
 select name_teacher from teacher;
 select age from teacher;
@@ -68,4 +69,8 @@ set email = 'tri@gmail.com'
 where id = 11;
 
 select * from teacher ;
-set sql_safe_updates = 1 ;
+set sql_safe_updates = 0 ;
+alter table class
+rename to classes;
+set sql_safe_updates = 1;
+select * from classes;
