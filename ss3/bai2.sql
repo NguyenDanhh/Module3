@@ -71,18 +71,13 @@ on od.order_id = c.id
 join product p
 on p.id = od.order_id;
 
-select
-c.id, c.name_customer, c.age , p.name_product , od.order_quantity
+select c.name_customer
 from customer c
-join order_product o
-on c.id = o.id
-join order_detail od
-on od.order_id= c.id
-left join product p
-on p.id = od.product_id;
+left join order_product on c.id = order_product.id_customer
+where order_product.id is null;
 
-select
-o.id , o.order_date, od.order_quantity, o.total_price
-from order_product o
-join order_detail od
-on od.order_id = o.id;
+select order_product.id, order_product.order_date, sum(order_detail.order_quantity*product.price) as total_price from order_product
+inner join customer on customer.id = order_product.id_customer
+inner join order_detail on order_detail.order_id = order_product.id
+inner join product on order_detail.product_id = product.id
+group by order_product.id;

@@ -1,12 +1,12 @@
 create database student_manager;
 use student_manager;
-create table Class (
-    class_Id int not null auto_increment primary key,
+create table classes (
+    class_id int not null auto_increment primary key,
     class_name varchar(60) not null,
     start_date datetime not null,
     status bit
 );
-create table Student
+create table student
 (
     student_id int not null auto_increment primary key,
     student_name varchar(30) not null,
@@ -14,10 +14,10 @@ create table Student
     phone varchar(20),
     status bit,
     class_id int not null,
-    foreign key (class_id) references class (class_iD)
+    foreign key (class_id) references classes (class_id)
 );
 
-create table Subject
+create table subject
 (
     sub_id int not null auto_increment primary key,
     sub_name varchar(30) not null,
@@ -25,7 +25,7 @@ create table Subject
     status bit default 1
 );
 
-create table Mark
+create table mark
 (
     mark_id int not null auto_increment primary key,
     sub_id int not null,
@@ -34,53 +34,53 @@ create table Mark
     exam_times tinyint default 1,
     unique (sub_id, student_id),
     foreign key (sub_id) references Subject (sub_id),
-    foreign key (student_id) references Student (student_id)
+    foreign key (student_id) references student (student_id)
 );
 
-insert into Class
+insert into classes
 values (1, 'A1', '2008-12-20', 1);
 
-insert into Class
+insert into classes
 values (4, 'A4', '2012-11-22', 1);
 
-insert into Class
+insert into classes
 values (3, 'B3', current_date, 0);
 
-insert into Student (student_name, address, phone, status, class_id)
+insert into student (student_name, address, phone, status, class_id)
 values ('Hung', 'Ha Noi', '0912113113', 1, 1);
 
-insert into Student (student_name, address, status, class_id)
+insert into student (student_name, address, status, class_id)
 values ('Hoa', 'Hai phong', 1, 1);
 
-insert into Student (student_name, address, phone, status, class_id)
+insert into student (student_name, address, phone, status, class_id)
 values ('Manh', 'HCM', '0123123123', 0, 2);
 
-insert into Subject
+insert into subject
 values (1, 'CF', 5, 1),
        (2, 'C', 6, 1),
        (3, 'HDJ', 5, 1),
        (4, 'RDBMS', 10, 1);
        
-insert into Mark (sub_id, student_id, mark, exam_times)
+insert into mark (sub_id, student_id, mark, exam_times)
 values (1, 1, 8, 1),
        (1, 2, 10, 2),
        (2, 1, 12, 1);
 
-select * from Student -- Hiển thị tất cả các sinh viên có tên bắt đầu bảng ký tự ‘h’--
-where Student.student_name like 'h%';
+select * from student -- Hiển thị tất cả các sinh viên có tên bắt đầu bảng ký tự ‘h’--
+where student.student_name like 'h%';
 
-select * from Class -- Hiển thị các thông tin lớp học có thời gian bắt đầu vào tháng 12.--
-where Class.start_date like '%-12-%';
+select * from classes -- Hiển thị các thông tin lớp học có thời gian bắt đầu vào tháng 12.--
+where classes.start_date like '%-12-%';
 
-select * from Subject -- Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5.--
-where Subject.credit >= 3 and Subject.credit <= 5;
+select * from subject -- Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5.--
+where subject.credit >= 3 and subject.credit <= 5;
 
-select * from Student 
-inner join Class 
-on Student.class_id = Class.class_id;
+select * from student 
+inner join classes 
+on student.class_id = class.class_id;
 
 set sql_safe_updates = 0;
-update Student -- Thay đổi mã lớp(ClassID) của sinh viên có tên ‘Hung’ là 2. --
+update student -- Thay đổi mã lớp(ClassID) của sinh viên có tên ‘Hung’ là 2. --
 set class_id = 2 
 where student_name = 'hung';
 set sql_safe_updates = 1;
