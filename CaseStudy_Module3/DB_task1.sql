@@ -36,6 +36,7 @@ value('Diamond'),
 		('Gold'),
 		('Silver'),
 		('Member');
+select * from type_customer;
         
 insert into customer(name_customer,date_of_birth,gender,card_id_customer,phone,email,andress,id_type_customer)
 values ('Nguyễn Thị Hào','1970-11-07'	,0,	'643431213',	'0945423362'	,'thihao07@gmail.com',	'23 Nguyễn Hoàng, Đà Nẵng'	,5),
