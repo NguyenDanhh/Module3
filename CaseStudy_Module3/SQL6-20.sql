@@ -55,3 +55,61 @@ left join contract_details cd on ct.id_contract = cd.id_contract
 left join accompanying_services ac on cd.id_service = ac.id_service
 group by ct.id_contract
 ;
+
+-- 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
+select ac.* from accompanying_services ac
+join contract_details cd on ac.id_service = cd.id_service
+join contract ct on ct.id_contract = cd.id_contract 
+join customer c on c.id_customer = ct.id_customer 
+join type_customer tc on c.id_type_customer = tc.id_type_customer
+where tc.name_type_customer = 'Diamond' and (c.address like ('%Vinh') or c.address like ('%Quảng Ngãi'));
+
+-- 12.	Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu,
+ -- so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc của tất cả các
+-- dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021.
+select ct.id_contract , e.name_employee , c.name_customer , c.phone , sv.name_service ,
+ifnull(sum(cd.amount) , 0) as 'count' , ct.deposit from contract ct
+left join employee e on ct.id_employee = e.id_employee
+left join customer c on c.id_customer = ct.id_customer 
+left join service_furama sv on ct.id_service = sv.id_service
+left join contract_details cd on ct.id_contract = cd.id_contract
+left join accompanying_services ac on cd.id_service = ac.id_service
+where (year(ct.date_start_contract) = '2020' and month(ct.date_start_contract) in (10,11,12) )
+and year(ct.date_start_contract) not in (
+select ct.id_contract from contract ct
+where year(ct.date_start_contract) = '2021' and month(ct.date_start_contract) in (1,2,3,4,5,6))
+group by ct.id_contract
+;
+
+-- 13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+select ac.id_service , ac.name_service  , sum(cd.amount) from accompanying_services ac 
+join contract_details cd on cd.id_service = ac.id_service
+join contract ct on ct.id_contract = cd.id_contract 
+group by ac.id_service
+having sum(cd.amount) = '15'
+;
+
+-- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu,
+--  ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
+select ct.id_contract , ts.name_type_service , ac.name_service ,count(ac.id_service)
+ from accompanying_services ac
+join contract_details cd on ac.id_service = cd.id_service 
+join contract ct on cd.id_contract = ct.id_contract 
+join service_furama sv on ct.id_service = sv.id_service 
+join type_service ts on sv.id_type_service = ts.id_type_service
+group by ac.name_service
+having count(ac.id_service) = '1'
+order by ct.id_contract
+;
+-- 15.	Hiển thi thông tin của tất cả nhân viên bao gồm ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan,
+-- so_dien_thoai, dia_chi mới chỉ lập được tối đa 3 hợp đồng từ năm 2020 đến 2021.
+select e.id_employee , e.name_employee , qa.name_qualification , pc.name_partscode , e.phone ,  e.address   from employee e 
+left join qualification_employee qa on e.id_qualification = qa.id_qualification
+left join partscode_employee pc on e.id_partscode = pc.id_partscode
+join contract ct on e.id_employee = ct.id_employee
+group by e.id_employee 
+having  count(e.id_employee) <= 3
+;
+
+-- 16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021.
+select * from employee e
