@@ -112,4 +112,45 @@ having  count(e.id_employee) <= 3
 ;
 
 -- 16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021.
-select * from employee e
+select e.id_employee,e.name_employee from employee e
+left join contract ct on ct.id_employee= e.id_employee
+where ifnull(ct.id_contract,0)=0;
+
+-- 17.	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.
+-- customer, type_customer,contract,service,contract_details,accompaning
+select c.id_customer,c.name_customer,tc.id_type_customer,tc.name_type_customer,ct.id_contract,
+cd.id_contract_details,acs.id_service,((ct.deposit+sf.rental_cost)+ ifnull(sum(cd.amount*acs.price),0)) as 'total_bill' from customer c
+join type_customer tc on tc.id_type_customer=c.id_type_customer
+join contract ct on ct.id_customer=c.id_customer
+join service_furama sf on sf.id_service= ct.id_service
+join contract_details cd on cd.id_contract=ct.id_contract
+join accompanying_services acs on acs.id_service=cd.id_service
+group by c.id_customer
+having total_bill >= 10000000
+;
+
+ set global sql_mode=(select replace(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+-- 18.	Xóa những khách hàng có hợp đồng trước năm 2021 
+select c.id_customer,c.name_customer from customer c
+left join contract ct on ct.id_customer=c.id_customer
+where year(date_start_contract) < 2021
+;
+
+-- 19.	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi.
+select*from accompanying_services;
+select acs.id_service,acs.name_service,cd.amount,acs.price,ct.id_contract from accompanying_services acs
+join contract_details cd on cd.id_service= acs.id_service
+join contract ct on ct.id_contract= cd.id_contract
+group by acs.id_service
+having cd.amount > 10
+;
+
+-- 20.	Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.
+select 	e.id_employee , e.name_employee ,e.email,e.phone ,e.date_of_birth  ,e.address from employee e
+left join contract ct on ct.id_employee= e.id_employee
+left join customer c on c.id_customer= ct.id_customer
+group by e.id_employee 
+union 
+select c.id_customer,c.name_customer,c.email,c.phone,c.date_of_birth,c.address
+from customer c;
