@@ -1,0 +1,11 @@
+.content div{
+    width: 70%;
+    text-indent: 20px;
+}
+span{
+    color : blue ;
+}
+a{
+    color: blue;
+    text-decoration: none;
+}
