@@ -74,3 +74,4 @@ alter table class
 rename to classes;
 set sql_safe_updates = 1;
 select * from classes;
+
