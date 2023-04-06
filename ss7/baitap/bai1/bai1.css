@@ -80,6 +80,12 @@
     /*border: 1px solid red;*/
 }
 
+.row:after {
+    display: block; /*  Giống với thẻ div  */
+    clear: both;
+    content: "";
+}
+
 a {
     text-decoration: none;
 }
