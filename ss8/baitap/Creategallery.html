@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="untitled/css/bootstrap.css">
+    <style>
+        .size-picture {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
     <link rel="stylesheet" href="../../css/bootstrap.css">
 </head>
 <body>
-<h2>Responsive Image Gallery</h2>
-<h4>Resize the browser window to see the effect</h4>
+<div class="container-fluid">
+    <div class="row col-12">
+        <h1>Responsive Image Gallery</h1>
+    </div>
+    <div class="row col-12">
+        <p><strong>Resize the browser window to see the effect.</strong></p>
+    </div>
+    <div class="row ">
+        <div class="col-md-3 col-sm-6 col-12 "><img
+                src="https://media.vov.vn/sites/default/files/styles/large/public/2021-04/a1_0.png"
+                class="size-picture"></div>
+        <div class="col-md-3 col-sm-6 col-12"><img
+                src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/7/11/1067168/Vu-Tru-James-Webb-NA.jpg"
+                class="size-picture"></div>
+        <div class="col-md-3 col-sm-6 col-12"><img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuDIHDcl-OSPS7J-SEW0Iw_ACKkMDgHiB_F6bI3WQk&s"
+                class="size-picture"></div>
+        <div class="col-md-3 col-sm-6 col-12"><img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSg9hBSDV7-bypGUQDuo9EMyPd4pprEadcCLp3vaq&s"
+                class="size-picture"></div>
+    </div>
+    <div><p>This example use media queries to re-arrange the images on different screen sizes: for screens larger than
+        700px wide, it will show four images side by side, for screens smaller than 700px, it will show two images side
+        by side. For screens smaller than 500px, the images will stack vertically (100%).</p></div>
 
+</div>
 </body>
 </html>
