@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6af9af2-9daf-4575-b2cb-b4344312fe01" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ss9/bai_tap/bai1/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ss9/bai_tap/bai1/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ss9/bai_tap/bai1/demo/src/main/webapp/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ss9/bai_tap/bai1/demo/src/main/webapp/result.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="b6af9af2-9daf-4575-b2cb-b4344312fe01" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +20,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/codegym/Module3/ss10",
+    "last_opened_file_path": "D:/codegym/Module3",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -36,6 +33,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681182755282</updated>
       <workItem from="1681182756367" duration="44000" />
+      <workItem from="1681269926427" duration="11000" />
     </task>
     <servers />
   </component>
