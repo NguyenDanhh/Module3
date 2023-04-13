@@ -12,9 +12,14 @@ public class CalculatorServlet extends HttpServlet {
         int firstOperand = Integer.parseInt(req.getParameter("first-operand"));
         int secondOperand = Integer.parseInt(req.getParameter("second-operand"));
         String operator = req.getParameter("operator");
-        int result = Calculator.calculate(operator , firstOperand,secondOperand);
-        req.setAttribute("result" , result);
-        req.getRequestDispatcher("index.jsp").forward(req,resp);
+        try{
+            int result = Calculator.calculate(operator , firstOperand,secondOperand);
+            req.setAttribute("result" , result);
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
+        }catch (Exception e){
+            req.getRequestDispatcher("exception.jsp").forward(req, resp);
+        }
+
     }
 
     @Override
