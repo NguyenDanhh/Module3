@@ -20,18 +20,18 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findId(int id) {
-        return null;
+    public List<Product> findId(String id) {
+        return iProductRepository.findId(id);
     }
 
     @Override
     public void update(int id, Product product) {
-
+        iProductRepository.update(id , product);
     }
 
     @Override
     public void remove(int id) {
-
+        iProductRepository.remove(id);
     }
 
 

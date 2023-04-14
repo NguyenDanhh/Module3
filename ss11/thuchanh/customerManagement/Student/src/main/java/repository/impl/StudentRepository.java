@@ -18,4 +18,9 @@ public class StudentRepository implements IStudentRepository {
     public List<Student> listSutdent() {
         return studentList;
     }
+
+    @Override
+    public void create(Student student) {
+
+    }
 }

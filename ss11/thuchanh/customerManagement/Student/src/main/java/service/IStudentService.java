@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IStudentService {
     List<Student> findAll();
+    void create(Student student);
 }

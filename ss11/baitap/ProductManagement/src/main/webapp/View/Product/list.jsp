@@ -22,13 +22,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<button class="btn btn-primary"><a href="/product?actionUser=create" style="color: white">Create</a></button>
+<button class="btn btn-primary"><a href="/product?actionUser=create" style="color: white ;text-decoration: none">Create</a></button>
+<form>
+<div>Search <input type="text" name="name"></div>
+<button name="actionUser" value="search" class="btn btn-primary"  style="color: white ;text-decoration: none" type="submit">search</button>
+</form>
 <table class="table">
     <thead>
     <tr>
         <th>ID</th>
         <th>Name Product</th>
         <th>Price</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -37,6 +43,8 @@
             <td scope="row">${id.count}</td>
             <td>${element.name}</td>
             <td>${element.price}</td>
+            <td><button type="submit" class="btn btn-primary" ><a href="/product?actionUser=update&id=${element.id}" style="color: white ;text-decoration: none">Update</a></button></td>
+            <td><button type="submit" class="btn btn-primary"><a href="/product?actionUser=delete&id=${element.id}" style="color: white ;text-decoration: none">Delete</a></button></td>
         </tr>
     </c:forEach>
     </tbody>

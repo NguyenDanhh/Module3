@@ -2,11 +2,10 @@
   Created by IntelliJ IDEA.
   User: admin
   Date: 4/13/2023
-  Time: 11:15 AM
+  Time: 11:40 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,23 +22,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Score</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="element" items = "${studentList}" varStatus="id">
-        <tr>
-            <td>${id.count}</td>
-            <td>${element.name}</td>
-            <td>${element.score}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+
+<form method="post">
+    <div class="form-group">
+        <label for="id">ID</label>
+        <input type="number" class="form-control" name="id" id="id">
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name">
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" name="price" id="price">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
 </body>
 </html>
