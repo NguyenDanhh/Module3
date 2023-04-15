@@ -28,4 +28,14 @@ public class UserService implements IUserService {
     public void update(User user) {
         iUserRepository.update(user);
     }
+
+    @Override
+    public User getUserById(int id) {
+        return iUserRepository.getUserById(id);
+    }
+
+    @Override
+    public void insertUserStore(User user) {
+        iUserRepository.insertUserStore(user);
+    }
 }
