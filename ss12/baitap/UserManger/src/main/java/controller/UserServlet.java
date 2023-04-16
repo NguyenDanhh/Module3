@@ -89,14 +89,14 @@ public class UserServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    private void updateUser(HttpServletRequest request , HttpServletResponse response){
+    private void updateUser(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         User user = new User(id , name , email , country);
         iUserService.update(user);
-        request.getRequestDispatcher("view/update.jsp");
+        request.getRequestDispatcher("view/update.jsp ").forward(request,response);
     }
     // ss13
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)

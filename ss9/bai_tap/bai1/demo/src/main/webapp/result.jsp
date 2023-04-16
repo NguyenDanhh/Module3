@@ -13,6 +13,6 @@
 <body>
 <h1>Discount Amount : ${discountAmount}</h1>
 <h1>Discount Price : ${discountPrice}</h1>
-bs5-$
+
 </body>
 </html>

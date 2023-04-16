@@ -50,10 +50,10 @@
             <td>${element.email}</td>
             <td>${element.country}</td>
             <td>
-                <button onclick="window.location.href = '/UserServlet?action=Update&id=${element.id}'">Update</button>
+                <button onclick="window.location.href = '/UserServlet?action=update&id=${element.id}'">Update</button>
             </td>
             <td>
-                <button onclick="window.location.href = '/UserServlet?action=Update&id=${element.id}'">Delete</button>
+                <button onclick="window.location.href = '/UserServlet?action=delete&id=${element.id}'">Delete</button>
             </td>
         </tr>
     </c:forEach>

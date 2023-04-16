@@ -13,6 +13,9 @@
 <body>
 
 <form method="post">
+    <label>ID</label>
+    <input type="number" name="id">
+
     <label>name</label>
     <input type="text" name="name">
 
