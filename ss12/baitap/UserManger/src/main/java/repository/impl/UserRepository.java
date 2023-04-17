@@ -1,5 +1,4 @@
 package repository.impl;
-
 import model.User;
 import repository.IUserRepository;
 
@@ -12,12 +11,13 @@ import static repository.impl.BaseConnection.getConnection;
 public class UserRepository implements IUserRepository {
     private static final String SELECT_ALL_USER = "select * from users";
     private static final String SAVE_USER = "insert into users(name,email,country) value(?,?,?)";
-    private static final String UPDATE_USER_BY_ID = "update users set name = ?, email = ?, country = ? where id = ?;";
+    private static final String UPDATE_USER_BY_ID = "update users set name = ?, email = ?, country = ? where id = ?";
+    private static final String DELETE_USER = "delete from users where id = ?";
 
     @Override
     public List<User> findAll() {
         List<User> userList = new ArrayList<>();
-        try (Connection connection = getConnection();
+        try (Connection connection = BaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USER)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -36,7 +36,8 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void create(User user) {
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SAVE_USER)) {
+        try (Connection connection = BaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE_USER)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getCountry());
@@ -48,22 +49,30 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void delete(int id) {
-
-    }
-
-    @Override
-    public void update(User user) {
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID)) {
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getCountry());
+        try (Connection connection = BaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
- // ss13
+
+    @Override
+    public void update(User user) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID)) {
+            preparedStatement.setInt(4, user.getId());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getCountry());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // ss13
     @Override
     public User getUserById(int id) {
         User user = null;

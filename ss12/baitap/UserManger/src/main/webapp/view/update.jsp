@@ -14,16 +14,16 @@
 
 <form method="post">
     <label>ID</label>
-    <input type="number" name="id">
+    <input type="number" name="id" value="${user.getId()}">
 
     <label>name</label>
-    <input type="text" name="name">
+    <input type="text" name="name" value="${user.getName()}">
 
     <label>email</label>
-    <input type="text" name="email">
+    <input type="text" name="email" value="${user.getEmail()}">
 
     <label>country</label>
-    <input type="text" name="country">
+    <input type="text" name="country" value="${user.getCountry()}">
 
     <input type="submit" value="submit">
 </form>
