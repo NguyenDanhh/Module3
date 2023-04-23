@@ -18,7 +18,7 @@ public class UserRepository implements IUserRepository {
     public List<User> findAll() {
         List<User> userList = new ArrayList<>();
         try (Connection connection = BaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USER)) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT_ALL_USER")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
